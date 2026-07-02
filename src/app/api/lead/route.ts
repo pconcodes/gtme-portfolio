@@ -3,9 +3,22 @@ import { parseLead } from "@/lib/leads/validate";
 import { deriveEnrichment, sendToClay } from "@/lib/leads/enrich";
 import { pushToHubSpot } from "@/lib/leads/hubspot";
 import { pingSlack } from "@/lib/leads/slack";
+import { checkRateLimit, getClientIp } from "@/lib/leads/rate-limit";
 import type { LeadError, LeadResult } from "@/lib/leads/types";
 
 export async function POST(req: Request) {
+  // Rate limit before doing any work.
+  const { allowed, retryAfterSeconds } = checkRateLimit(getClientIp(req));
+  if (!allowed) {
+    return NextResponse.json<LeadError>(
+      {
+        ok: false,
+        errors: ["Too many submissions. Please wait a minute and try again."],
+      },
+      { status: 429, headers: { "Retry-After": String(retryAfterSeconds) } },
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();
