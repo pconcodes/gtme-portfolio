@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { track } from "@vercel/analytics";
 import type { LeadResult } from "@/lib/leads/types";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -37,7 +38,13 @@ export function LeadForm() {
         return;
       }
 
-      setResult(json as LeadResult);
+      const leadResult = json as LeadResult;
+      // Conversion event — the funnel's actual goal.
+      track("lead_submitted", {
+        workEmail: leadResult.enrichment.isWorkEmail,
+        hubspot: leadResult.integrations.hubspot,
+      });
+      setResult(leadResult);
       setStatus("success");
       form.reset();
     } catch {
