@@ -15,13 +15,34 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+  ? process.env.NEXT_PUBLIC_SITE_URL
+  : process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "http://localhost:3000";
+
+const description =
+  "SDR/AE turned GTM Engineer. I build the systems that make sales scale — clean CRM data, automated enrichment and routing, and outbound that runs itself.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Peter Conley — GTM Engineer",
     template: "%s · Peter Conley",
   },
-  description:
-    "SDR/AE turned GTM Engineer. I build the systems that make sales scale — clean CRM data, automated enrichment and routing, and outbound that runs itself.",
+  description,
+  openGraph: {
+    title: "Peter Conley — GTM Engineer",
+    description,
+    siteName: "Peter Conley",
+    type: "website",
+    url: "/",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Peter Conley — GTM Engineer",
+    description,
+  },
 };
 
 export default function RootLayout({
