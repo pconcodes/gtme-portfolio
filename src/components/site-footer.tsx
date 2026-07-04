@@ -23,6 +23,14 @@ export function SiteFooter() {
           >
             LinkedIn
           </a>
+          <a
+            href="https://github.com/pconcodes"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-white"
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </footer>
