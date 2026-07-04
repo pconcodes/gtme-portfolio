@@ -15,6 +15,14 @@ export function SiteFooter() {
           <Link href="/contact" className="transition-colors hover:text-white">
             Contact
           </Link>
+          <a
+            href="https://www.linkedin.com/in/peter-conley/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition-colors hover:text-white"
+          >
+            LinkedIn
+          </a>
         </div>
       </div>
     </footer>

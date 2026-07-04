@@ -39,25 +39,6 @@ const experience = [
   },
 ];
 
-const capabilities = [
-  {
-    title: "CRM & pipeline ops",
-    body: "Forecasting processes, lifecycle and stage design, SDR→AE handoffs, and reporting dashboards that leadership can actually plan against.",
-  },
-  {
-    title: "Outbound systems",
-    body: "40+ outreach sequences, inbound routing in Apollo, and partner-outreach motions — built to scale without thinning the message.",
-  },
-  {
-    title: "Enrichment & data",
-    body: "Clean, enriched records via RB2B, ZoomInfo and Apollo, so reps stop hand-researching and the CRM stays trustworthy.",
-  },
-  {
-    title: "…and I ship the code",
-    body: "JavaScript, React, Node and SQL from BloomTech. I build the automation and integrations, not just the spec for them.",
-  },
-];
-
 const skillGroups = [
   {
     label: "Sales stack",
@@ -126,7 +107,7 @@ export default function Home() {
 
       {/* Experience */}
       <section id="experience" className="mx-auto max-w-4xl px-6 py-24">
-        <SectionHeading kicker="Track record" title="Where I've built pipeline" />
+        <SectionHeading kicker="Track record" title="Experience" />
         <div className="mt-12 space-y-px overflow-hidden rounded-2xl border border-white/10">
           {experience.map((job) => (
             <div key={job.company} className="bg-white/[0.02] p-6 sm:p-8">
@@ -145,24 +126,6 @@ export default function Home() {
               </ul>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* What I build */}
-      <section id="build" className="border-t border-white/5 bg-white/[0.02]">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <SectionHeading kicker="Capabilities" title="What I build" />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2">
-            {capabilities.map((c) => (
-              <div
-                key={c.title}
-                className="rounded-2xl border border-white/10 bg-[#0d0d10] p-7"
-              >
-                <h3 className="text-lg font-semibold text-white">{c.title}</h3>
-                <p className="mt-3 leading-7 text-zinc-400">{c.body}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
