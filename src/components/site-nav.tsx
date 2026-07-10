@@ -15,7 +15,7 @@ export function SiteNav() {
           className="flex items-center gap-2 font-semibold tracking-tight text-white"
         >
           <span className="inline-block h-4 w-4 rounded-full bg-red-500" />
-          Peter Conley
+          GTME
         </Link>
         <ul className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
           {navLinks.map((l) => (
