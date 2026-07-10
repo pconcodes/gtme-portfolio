@@ -103,7 +103,7 @@ export default function Home() {
           </Link>
 
           <h1 className="mt-8 bg-gradient-to-b from-white to-zinc-500 bg-clip-text text-5xl font-semibold leading-[1.05] tracking-tight text-transparent sm:text-7xl">
-            Sales Rep turned
+            SaaS Sales Rep turned
             <br />GTM Engineer
           </h1>
 
