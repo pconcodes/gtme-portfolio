@@ -42,11 +42,11 @@ const experience = [
 const skillGroups = [
   {
     label: "Sales stack",
-    items: ["HubSpot", "Salesforce", "Apollo", "Outreach", "ZoomInfo", "RB2B"],
+    items: ["HubSpot", "Salesforce", "Apollo", "Outreach", "ZoomInfo", "RB2B", "Clay"],
   },
   {
     label: "Technical",
-    items: ["JavaScript", "React", "Node.js", "SQL", "HTML", "CSS", "Git", "PostgreSQL"],
+    items: ["JavaScript", "TypeScript", "React", "Next.js", "Node.js", "SQL", "HTML", "CSS", "Git", "PostgreSQL", "Supabase"],
   },
   {
     label: "Dev tools",
