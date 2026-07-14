@@ -8,40 +8,40 @@ import type { ComponentPropsWithoutRef } from "react";
 export const mdxComponents = {
   h2: (props: ComponentPropsWithoutRef<"h2">) => (
     <h2
-      className="mt-12 mb-3 text-xl font-semibold tracking-tight text-white"
+      className="mt-12 mb-3 text-xl font-semibold tracking-tight text-text"
       {...props}
     />
   ),
   h3: (props: ComponentPropsWithoutRef<"h3">) => (
     <h3
-      className="mt-8 mb-2 text-lg font-semibold text-zinc-100"
+      className="mt-8 mb-2 text-lg font-semibold text-text"
       {...props}
     />
   ),
   p: (props: ComponentPropsWithoutRef<"p">) => (
-    <p className="my-4 leading-7 text-zinc-300" {...props} />
+    <p className="my-4 leading-7 text-text-muted" {...props} />
   ),
   ul: (props: ComponentPropsWithoutRef<"ul">) => (
-    <ul className="my-4 list-disc space-y-2 pl-6 text-zinc-300" {...props} />
+    <ul className="my-4 list-disc space-y-2 pl-6 text-text-muted" {...props} />
   ),
   li: (props: ComponentPropsWithoutRef<"li">) => (
     <li className="leading-7" {...props} />
   ),
   a: (props: ComponentPropsWithoutRef<"a">) => (
     <a
-      className="font-medium text-red-400 underline underline-offset-4 transition-colors hover:text-red-300"
+      className="font-medium text-accent-soft underline underline-offset-4 transition-colors hover:text-accent"
       {...props}
     />
   ),
   blockquote: (props: ComponentPropsWithoutRef<"blockquote">) => (
     <blockquote
-      className="my-6 rounded-lg border-l-4 border-red-500 bg-white/[0.03] px-5 py-4 text-lg font-medium text-white"
+      className="my-6 rounded-[2px] border-l-2 border-accent bg-panel px-5 py-4 text-lg font-medium text-text"
       {...props}
     />
   ),
   pre: (props: ComponentPropsWithoutRef<"pre">) => (
     <pre
-      className="my-6 overflow-x-auto rounded-lg border border-white/10 bg-black/50 p-4 text-sm leading-6 text-zinc-100"
+      className="my-6 overflow-x-auto rounded-[2px] border border-border bg-panel-deep p-4 text-sm leading-6 text-text"
       {...props}
     />
   ),
@@ -51,12 +51,12 @@ export const mdxComponents = {
     if (className) return <code className={className} {...props} />;
     return (
       <code
-        className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.9em] text-zinc-100"
+        className="rounded-[2px] bg-panel-deep px-1.5 py-0.5 font-mono text-[0.9em] text-accent-soft"
         {...props}
       />
     );
   },
   small: (props: ComponentPropsWithoutRef<"small">) => (
-    <small className="mt-6 block text-xs text-zinc-500" {...props} />
+    <small className="mt-6 block text-xs text-text-faint" {...props} />
   ),
 };

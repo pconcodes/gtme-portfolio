@@ -14,9 +14,10 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#08080a",
+          background: "#0a0b0e",
           backgroundImage:
-            "radial-gradient(60% 70% at 15% 0%, rgba(220,38,38,0.22) 0%, rgba(8,8,10,0) 60%)",
+            "linear-gradient(#1c2028 1px, transparent 1px), linear-gradient(90deg, #1c2028 1px, transparent 1px), radial-gradient(60% 70% at 15% 0%, rgba(74,143,224,0.16) 0%, rgba(10,11,14,0) 60%)",
+          backgroundSize: "28px 28px, 28px 28px, 100% 100%",
           padding: 80,
           color: "#ffffff",
           fontFamily: "sans-serif",
@@ -28,19 +29,12 @@ export default function OpengraphImage() {
             alignItems: "center",
             gap: 16,
             fontSize: 32,
-            color: "#e4e4e7",
+            color: "#e4e5e8",
+            fontFamily: "monospace",
+            letterSpacing: 4,
           }}
         >
-          <div
-            style={{
-              width: 26,
-              height: 26,
-              borderRadius: 999,
-              background: "#dc2626",
-              display: "flex",
-            }}
-          />
-          <div style={{ display: "flex" }}>Peter Conley</div>
+          <div style={{ display: "flex" }}>GTME</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
@@ -55,7 +49,7 @@ export default function OpengraphImage() {
           >
             SaaS Sales Rep turned GTM Engineer
           </div>
-          <div style={{ display: "flex", fontSize: 34, color: "#a1a1aa" }}>
+          <div style={{ display: "flex", fontSize: 34, color: "#8a8d94" }}>
             Top-performing SDR &amp; AE, now a GTM Engineer.
           </div>
         </div>
@@ -73,10 +67,11 @@ export default function OpengraphImage() {
             style={{
               display: "flex",
               padding: "10px 22px",
-              borderRadius: 999,
-              background: "rgba(220,38,38,0.15)",
-              border: "1px solid rgba(220,38,38,0.4)",
-              color: "#fca5a5",
+              borderRadius: 2,
+              background: "rgba(74,143,224,0.12)",
+              border: "1px solid rgba(74,143,224,0.4)",
+              color: "#8fb8ea",
+              fontFamily: "monospace",
             }}
           >
             205% quota

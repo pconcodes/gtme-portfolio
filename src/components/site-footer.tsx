@@ -1,36 +1,65 @@
 import Link from "next/link";
 
 export function SiteFooter() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="border-t border-white/5">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 text-sm text-zinc-500 sm:flex-row">
-        <div className="flex items-center gap-2">
-          <span className="inline-block h-3 w-3 rounded-full bg-red-500" />
-          Peter Conley — GTM Engineer
+    <footer className="border-t border-border-soft">
+      <div className="mx-auto max-w-6xl px-6 py-8">
+        <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-text-faint">
+          <span>Portfolio — GTM systems</span>
+          <span>DWG NO. GTME-01</span>
         </div>
-        <div className="flex gap-6">
-          <Link href="/case-studies" className="transition-colors hover:text-white">
-            Case study
-          </Link>
-          <Link href="/contact" className="transition-colors hover:text-white">
-            Contact
-          </Link>
-          <a
-            href="https://www.linkedin.com/in/peter-conley/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-white"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://github.com/pconcodes"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="transition-colors hover:text-white"
-          >
-            GitHub
-          </a>
+
+        <div className="mt-4 flex items-center gap-2.5">
+          <svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true">
+            <line x1="10" y1="0" x2="10" y2="20" stroke="var(--color-accent)" strokeWidth="1" />
+            <line x1="0" y1="10" x2="20" y2="10" stroke="var(--color-accent)" strokeWidth="1" />
+            <circle cx="10" cy="10" r="6" fill="none" stroke="var(--color-accent)" strokeWidth="1" />
+          </svg>
+          <span className="font-medium text-text">Peter Conley — GTM Engineer</span>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 gap-6 border-t border-border-soft pt-6 sm:grid-cols-3">
+          <div>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-text-faint">Sheets</p>
+            <div className="mt-2 flex flex-col gap-1.5 text-sm text-text-muted">
+              <Link href="/case-studies" className="transition-colors hover:text-text">
+                Case study
+              </Link>
+              <Link href="/contact" className="transition-colors hover:text-text">
+                Contact
+              </Link>
+            </div>
+          </div>
+          <div>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-text-faint">Channels</p>
+            <div className="mt-2 flex flex-col gap-1.5 text-sm text-text-muted">
+              <a
+                href="https://www.linkedin.com/in/peter-conley/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-text"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com/pconcodes"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-text"
+              >
+                GitHub
+              </a>
+            </div>
+          </div>
+          <div>
+            <p className="font-mono text-[9px] uppercase tracking-widest text-text-faint">Rev</p>
+            <div className="mt-2 text-sm text-text-muted">
+              <p>{year}</p>
+              <p className="text-text-faint">Next.js · Vercel</p>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

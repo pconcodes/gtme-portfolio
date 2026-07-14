@@ -3,13 +3,14 @@
 import { useState, type FormEvent } from "react";
 import { track } from "@vercel/analytics";
 import type { LeadResult } from "@/lib/leads/types";
+import { PipelineDiagram, type NodeStatus } from "@/components/blueprint";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputClass =
-  "w-full rounded-lg border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-red-500";
+  "w-full rounded-[2px] border border-border bg-panel px-3.5 py-2.5 text-text outline-none transition-colors placeholder:text-text-faint focus:border-accent";
 const labelClass =
-  "mb-1.5 block text-sm font-medium text-zinc-300";
+  "mb-1.5 block font-mono text-xs uppercase tracking-widest text-text-faint";
 
 export function LeadForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -95,7 +96,7 @@ export function LeadForm() {
       </div>
 
       {status === "error" && errors.length > 0 && (
-        <ul className="space-y-1 rounded-lg border border-red-900/50 bg-red-950/40 p-3 text-sm text-red-300">
+        <ul className="space-y-1 rounded-[2px] border border-red-900/50 bg-red-950/40 p-3 text-sm text-red-300">
           {errors.map((err) => (
             <li key={err}>{err}</li>
           ))}
@@ -105,28 +106,20 @@ export function LeadForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full rounded-lg bg-red-600 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-red-500 disabled:opacity-60"
+        className="w-full rounded-[2px] bg-accent px-5 py-3 font-mono text-sm uppercase tracking-wide text-ink transition-colors hover:bg-accent-soft disabled:opacity-60"
       >
         {status === "submitting" ? "Sending through the pipeline…" : "Send it through the pipeline"}
       </button>
 
-      <p className="text-center text-xs text-zinc-500">
+      <p className="text-center font-mono text-[10px] uppercase tracking-widest text-text-faint">
         Submitting triggers the same enrich → CRM → Slack pipeline I build for GTM teams.
       </p>
     </form>
   );
 }
 
-function StatusBadge({ status }: { status: LeadResult["integrations"]["clay"] }) {
-  const map = {
-    sent: { label: "fired", cls: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30" },
-    skipped: { label: "not wired yet", cls: "bg-white/5 text-zinc-400 border-white/10" },
-    error: { label: "error", cls: "bg-red-500/15 text-red-300 border-red-500/30" },
-  } as const;
-  const { label, cls } = map[status];
-  return (
-    <span className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${cls}`}>{label}</span>
-  );
+function integrationToStatus(s: LeadResult["integrations"]["clay"]): NodeStatus {
+  return s;
 }
 
 function SuccessPanel({
@@ -137,60 +130,57 @@ function SuccessPanel({
   onReset: () => void;
 }) {
   const { enrichment, integrations } = result;
+
+  const nodes = [
+    { id: "in", tag: "IN", label: "Your details", sub: "Submitted just now", status: "sent" as NodeStatus },
+    { id: "enrich", tag: "ENRICH", label: "Clay lookup", sub: "Deep enrichment", status: integrationToStatus(integrations.clay) },
+    { id: "crm", tag: "CRM", label: "HubSpot record", sub: "Contact created/updated", status: integrationToStatus(integrations.hubspot) },
+    { id: "out", tag: "OUT", label: "Slack ping", sub: "Notifies Peter", status: integrationToStatus(integrations.slack) },
+  ];
+
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6">
-      <h3 className="text-lg font-semibold text-white">
+    <div className="rounded-2xl border border-border bg-panel p-6">
+      <h3 className="text-lg font-semibold text-text">
         You just triggered the pipeline.
       </h3>
-      <p className="mt-2 text-sm leading-6 text-zinc-400">
+      <p className="mt-2 text-sm leading-6 text-text-muted">
         Here&apos;s what happened the instant you hit submit — the same system I
         build for GTM teams, running on my own site.
       </p>
 
-      <div className="mt-5">
-        <p className="text-xs font-medium uppercase tracking-wide text-red-400">
-          Enriched on the fly
+      <div className="mt-6">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-text-faint">
+          fig. 01 — pipeline result
         </p>
-        <dl className="mt-2 space-y-1 text-sm text-zinc-300">
-          <div className="flex justify-between gap-4">
-            <dt className="text-zinc-500">Email domain</dt>
-            <dd className="font-medium">{enrichment.emailDomain || "—"}</dd>
-          </div>
-          <div className="flex justify-between gap-4">
-            <dt className="text-zinc-500">Work email</dt>
-            <dd className="font-medium">{enrichment.isWorkEmail ? "yes" : "no"}</dd>
-          </div>
-          <div className="flex justify-between gap-4">
-            <dt className="text-zinc-500">Company domain</dt>
-            <dd className="font-medium">{enrichment.companyDomain ?? "—"}</dd>
-          </div>
-        </dl>
+        <div className="mt-3">
+          <PipelineDiagram nodes={nodes} />
+        </div>
       </div>
 
-      <div className="mt-5">
-        <p className="text-xs font-medium uppercase tracking-wide text-red-400">
-          Routed to
+      <div className="mt-6">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-accent">
+          Enriched on the fly
         </p>
-        <ul className="mt-2 space-y-2 text-sm text-zinc-300">
-          <li className="flex items-center justify-between gap-4">
-            <span>Clay (deep enrichment)</span>
-            <StatusBadge status={integrations.clay} />
-          </li>
-          <li className="flex items-center justify-between gap-4">
-            <span>HubSpot (CRM)</span>
-            <StatusBadge status={integrations.hubspot} />
-          </li>
-          <li className="flex items-center justify-between gap-4">
-            <span>Slack (notify me)</span>
-            <StatusBadge status={integrations.slack} />
-          </li>
-        </ul>
+        <dl className="mt-2 space-y-1 text-sm text-text-muted">
+          <div className="flex justify-between gap-4">
+            <dt className="text-text-faint">Email domain</dt>
+            <dd className="font-medium text-text">{enrichment.emailDomain || "—"}</dd>
+          </div>
+          <div className="flex justify-between gap-4">
+            <dt className="text-text-faint">Work email</dt>
+            <dd className="font-medium text-text">{enrichment.isWorkEmail ? "yes" : "no"}</dd>
+          </div>
+          <div className="flex justify-between gap-4">
+            <dt className="text-text-faint">Company domain</dt>
+            <dd className="font-medium text-text">{enrichment.companyDomain ?? "—"}</dd>
+          </div>
+        </dl>
       </div>
 
       <button
         type="button"
         onClick={onReset}
-        className="mt-6 text-sm font-medium text-red-400 underline underline-offset-4 transition-colors hover:text-red-300"
+        className="mt-6 font-mono text-xs uppercase tracking-widest text-accent-soft underline underline-offset-4 transition-colors hover:text-accent"
       >
         Send another
       </button>

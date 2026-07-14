@@ -8,6 +8,7 @@ import {
   DOMAIN_LABELS,
 } from "@/lib/case-studies";
 import { mdxComponents } from "@/components/mdx";
+import { BlueprintChip } from "@/components/blueprint";
 
 type Params = { slug: string };
 
@@ -48,26 +49,23 @@ export default async function CaseStudyPage({
     <main className="mx-auto w-full max-w-3xl px-6 py-20">
       <Link
         href="/case-studies"
-        className="text-sm text-zinc-500 transition-colors hover:text-white"
+        className="font-mono text-xs uppercase tracking-widest text-text-faint transition-colors hover:text-text"
       >
         ← All case studies
       </Link>
 
       <header className="mt-6 mb-2">
-        <span className="text-xs font-medium uppercase tracking-wide text-red-400">
+        <span className="font-mono text-xs uppercase tracking-widest text-accent">
           {DOMAIN_LABELS[cs.meta.domain]}
         </span>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-text sm:text-4xl">
           {cs.meta.title}
         </h1>
         {cs.meta.stack && cs.meta.stack.length > 0 && (
           <ul className="mt-4 flex flex-wrap gap-2">
             {cs.meta.stack.map((tool) => (
-              <li
-                key={tool}
-                className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-zinc-400"
-              >
-                {tool}
+              <li key={tool}>
+                <BlueprintChip>{tool}</BlueprintChip>
               </li>
             ))}
           </ul>
@@ -76,11 +74,11 @@ export default async function CaseStudyPage({
 
       <article>{content}</article>
 
-      <div className="mt-16 border-t border-white/10 pt-8">
-        <p className="text-zinc-300">Want a system like this for your team?</p>
+      <div className="mt-16 border-t border-border-soft pt-8">
+        <p className="text-text-muted">Want a system like this for your team?</p>
         <Link
           href="/contact"
-          className="mt-3 inline-block rounded-full bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-red-500"
+          className="mt-3 inline-block rounded-[2px] bg-accent px-5 py-2.5 font-mono text-sm uppercase tracking-wide text-ink transition-colors hover:bg-accent-soft"
         >
           Get in touch
         </Link>
