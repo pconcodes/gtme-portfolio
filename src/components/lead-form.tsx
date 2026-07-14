@@ -112,7 +112,7 @@ export function LeadForm() {
       </button>
 
       <p className="text-center font-mono text-[10px] uppercase tracking-widest text-text-faint">
-        Submitting triggers the same enrich → CRM → Slack pipeline I build for GTM teams.
+        Submitting triggers the same enrich → CRM → Slack/email pipeline I build for GTM teams.
       </p>
     </form>
   );
@@ -135,7 +135,8 @@ function SuccessPanel({
     { id: "in", tag: "IN", label: "Your details", sub: "Submitted just now", status: "sent" as NodeStatus },
     { id: "enrich", tag: "ENRICH", label: "Clay lookup", sub: "Deep enrichment", status: integrationToStatus(integrations.clay) },
     { id: "crm", tag: "CRM", label: "HubSpot record", sub: "Contact created/updated", status: integrationToStatus(integrations.hubspot) },
-    { id: "out", tag: "OUT", label: "Slack ping", sub: "Notifies Peter", status: integrationToStatus(integrations.slack) },
+    { id: "slack", tag: "SLACK", label: "Slack ping", sub: "Notifies Peter", status: integrationToStatus(integrations.slack) },
+    { id: "email", tag: "EMAIL", label: "Email alert", sub: "Notifies Peter", status: integrationToStatus(integrations.email) },
   ];
 
   return (

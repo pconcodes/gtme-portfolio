@@ -7,7 +7,7 @@ result: "You already saw it work: submitting the form enriched your details and 
 order: 1
 featured: true
 illustrative: false
-stack: ["Next.js", "HubSpot", "Clay", "Slack", "Vercel"]
+stack: ["Next.js", "HubSpot", "Clay", "Slack", "Gmail", "Vercel"]
 ---
 
 ## Problem
@@ -19,8 +19,8 @@ hiring manager to tell the people who can actually build those systems from the
 people who just name them.
 
 So instead of describing what I can build, I made this site *be* one of the
-systems. The contact form isn't a form that emails me — it's a working lead
-pipeline, and you're the one who runs it.
+systems. The contact form isn't a form that quietly emails me and stops there
+— it's a working lead pipeline, and you're the one who runs it.
 
 ## Architecture
 
@@ -38,7 +38,8 @@ on its own, so one failure never takes down the rest.
   response.
 - **Push to the CRM.** The contact is upserted into HubSpot — created, or
   updated by email if it already exists — so the record is always clean.
-- **Notify.** A Slack message fires so I see the lead the instant it lands.
+- **Notify.** A Slack message and an email both fire so I see the lead the
+  instant it lands, whichever I'm looking at.
 
 ```text
 Form submit → Next.js API route
@@ -46,7 +47,8 @@ Form submit → Next.js API route
             → instant email enrichment  ┐
             → Clay (deep enrichment)     ├─ run in parallel
             → HubSpot (upsert contact)   │
-            → Slack (notify me)          ┘
+            → Slack (notify me)          │
+            → Email (notify me)          ┘
             → live status back to you
 ```
 

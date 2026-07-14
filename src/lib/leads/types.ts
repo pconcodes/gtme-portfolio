@@ -22,6 +22,7 @@ export interface LeadResult {
     clay: IntegrationStatus;
     hubspot: IntegrationStatus;
     slack: IntegrationStatus;
+    email: IntegrationStatus;
   };
 }
 

@@ -114,7 +114,8 @@ const pipelinePreview = [
   { id: "in", tag: "IN", label: "Form submit", sub: "Name, email, company", status: "planned" as const },
   { id: "enrich", tag: "ENRICH", label: "Clay + Apollo lookup", sub: "Domain, firmographics", status: "planned" as const },
   { id: "crm", tag: "CRM", label: "HubSpot record", sub: "Contact created/updated", status: "planned" as const },
-  { id: "out", tag: "OUT", label: "Slack ping", sub: "Notifies Peter", status: "planned" as const },
+  { id: "slack", tag: "SLACK", label: "Slack ping", sub: "Notifies Peter", status: "planned" as const },
+  { id: "email", tag: "EMAIL", label: "Email alert", sub: "Notifies Peter", status: "planned" as const },
 ];
 
 export default function Home() {
@@ -265,9 +266,10 @@ export default function Home() {
                 This site is a working GTM system — and you can trigger it.
               </h3>
               <p className="mt-4 max-w-2xl leading-7 text-text-muted">
-                The contact form isn&apos;t a form that emails me. It&apos;s a live
-                lead pipeline: submit it and your details get enriched and written
-                to my CRM in real time, with a Slack ping to me. The job, running
+                The contact form isn&apos;t a passive form that quietly emails me.
+                It&apos;s a live lead pipeline: submit it and your details get
+                enriched and written to my CRM in real time, with a Slack
+                ping and an email alert to me. The job, running
                 inside the artifact I used to apply for it.
               </p>
 

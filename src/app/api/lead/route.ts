@@ -3,6 +3,7 @@ import { parseLead } from "@/lib/leads/validate";
 import { deriveEnrichment, sendToClay } from "@/lib/leads/enrich";
 import { pushToHubSpot } from "@/lib/leads/hubspot";
 import { pingSlack } from "@/lib/leads/slack";
+import { emailLead } from "@/lib/leads/email";
 import { checkRateLimit, getClientIp } from "@/lib/leads/rate-limit";
 import type { LeadError, LeadResult } from "@/lib/leads/types";
 
@@ -36,7 +37,12 @@ export async function POST(req: Request) {
     return NextResponse.json<LeadResult>({
       ok: true,
       enrichment: { emailDomain: "", isWorkEmail: false, companyDomain: null },
-      integrations: { clay: "skipped", hubspot: "skipped", slack: "skipped" },
+      integrations: {
+        clay: "skipped",
+        hubspot: "skipped",
+        slack: "skipped",
+        email: "skipped",
+      },
     });
   }
 
@@ -50,15 +56,16 @@ export async function POST(req: Request) {
   const enrichment = deriveEnrichment(lead);
 
   // Run integrations in parallel; each degrades gracefully on its own.
-  const [clay, hubspot, slack] = await Promise.all([
+  const [clay, hubspot, slack, email] = await Promise.all([
     sendToClay(lead, enrichment),
     pushToHubSpot(lead),
     pingSlack(lead, enrichment),
+    emailLead(lead, enrichment),
   ]);
 
   return NextResponse.json<LeadResult>({
     ok: true,
     enrichment,
-    integrations: { clay, hubspot, slack },
+    integrations: { clay, hubspot, slack, email },
   });
 }

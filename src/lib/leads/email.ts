@@ -1,0 +1,64 @@
+import nodemailer from "nodemailer";
+import type { Enrichment, IntegrationStatus, Lead } from "./types";
+
+let transporter: ReturnType<typeof nodemailer.createTransport> | null = null;
+
+function getTransporter() {
+  if (transporter) return transporter;
+  const user = process.env.GMAIL_USER;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+  if (!user || !pass) return null;
+
+  transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: { user, pass },
+  });
+  return transporter;
+}
+
+/**
+ * Email a lead notification via Gmail SMTP (App Password auth). No-ops
+ * (returns "skipped") without GMAIL_USER / GMAIL_APP_PASSWORD.
+ */
+export async function emailLead(
+  lead: Lead,
+  enrichment: Enrichment,
+): Promise<IntegrationStatus> {
+  const user = process.env.GMAIL_USER;
+  const to = process.env.LEAD_NOTIFY_EMAIL ?? user;
+  const client = getTransporter();
+
+  if (!client || !to) {
+    console.warn(
+      "[email] skipped — GMAIL_USER / GMAIL_APP_PASSWORD / LEAD_NOTIFY_EMAIL " +
+        "not fully set in this process. Did you restart `npm run dev` after " +
+        "editing .env.local?",
+    );
+    return "skipped";
+  }
+
+  const workEmailLine = enrichment.isWorkEmail
+    ? `yes${enrichment.companyDomain ? ` (${enrichment.companyDomain})` : ""}`
+    : "no";
+
+  try {
+    await client.sendMail({
+      from: `"GTME portfolio" <${user}>`,
+      to,
+      replyTo: lead.email,
+      subject: `New lead: ${lead.name} @ ${lead.company}`,
+      text: [
+        `Name: ${lead.name}`,
+        `Email: ${lead.email}`,
+        `Company: ${lead.company}`,
+        `Work email: ${workEmailLine}`,
+        "",
+        `Message:\n${lead.message}`,
+      ].join("\n"),
+    });
+    return "sent";
+  } catch (err) {
+    console.error("[email] send threw:", err);
+    return "error";
+  }
+}
