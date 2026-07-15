@@ -124,7 +124,7 @@ export default function Home() {
               </h1>
 
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-text-muted">
-                FOR HIRE: Certified full-stack developer with 4+ years in B2B SaaS Sales.
+                FOR HIRE → Certified full-stack developer with 4+ years in B2B SaaS Sales.
               </p>
 
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
