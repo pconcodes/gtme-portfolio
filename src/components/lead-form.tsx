@@ -119,6 +119,7 @@ function SuccessPanel({
   const nodes = [
     { id: "in", tag: "IN", label: "Your details", sub: "Submitted just now", status: "sent" as NodeStatus },
     { id: "crm", tag: "CRM", label: "HubSpot record", sub: "Contact created/updated", status: integrationToStatus(integrations.hubspot) },
+    { id: "dust", tag: "DUST", label: "Agent triggered", sub: "Webhook fired", status: integrationToStatus(integrations.dust) },
     { id: "slack", tag: "SLACK", label: "Slack ping", sub: "Notifies Peter", status: integrationToStatus(integrations.slack) },
     { id: "email", tag: "EMAIL", label: "Email alert", sub: "Notifies Peter", status: integrationToStatus(integrations.email) },
   ];

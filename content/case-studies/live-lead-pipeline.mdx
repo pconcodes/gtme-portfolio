@@ -7,7 +7,7 @@ result: "You already saw it work: submitting the form enriched your details and 
 order: 1
 featured: true
 illustrative: false
-stack: ["Next.js", "HubSpot", "n8n", "Clay", "Slack", "Gmail", "Vercel"]
+stack: ["Next.js", "HubSpot", "n8n", "Clay", "Dust", "Slack", "Gmail", "Vercel"]
 ---
 
 ## Problem
@@ -40,6 +40,10 @@ on its own, so one failure never takes down the rest.
   updated by email if it already exists — so the record is always clean.
 - **Notify.** A Slack message and an email both fire so I see the lead the
   instant it lands, whichever I'm looking at.
+- **Trigger an agent.** A webhook fires to a Dust agent. No signing here —
+  for a personal lead-routing form, the webhook URL itself is the secret
+  (URL obscurity, a pattern Dust's own docs support), kept server-side as
+  an env var and never shipped to the client.
 - **Enrich further (in progress).** A HubSpot workflow will trigger an n8n
   hook that calls Clay for deeper firmographic enrichment, landing straight
   back on the CRM record. Not live yet — today the record lands clean and
@@ -51,7 +55,8 @@ Form submit → Next.js API route
             → instant email enrichment  ┐
             → HubSpot (upsert contact)   ├─ run in parallel
             → Slack (notify me)          │
-            → Email (notify me)          ┘
+            → Email (notify me)          │
+            → Dust (agent webhook)       ┘
             → live status back to you
 
 HubSpot (new/updated contact) → n8n hook → Clay enrichment → back to HubSpot
