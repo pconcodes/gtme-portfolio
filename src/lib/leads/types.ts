@@ -20,7 +20,6 @@ export interface LeadResult {
     hubspot: IntegrationStatus;
     slack: IntegrationStatus;
     email: IntegrationStatus;
-    dust: IntegrationStatus;
   };
 }
 
