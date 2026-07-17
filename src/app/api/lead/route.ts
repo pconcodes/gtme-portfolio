@@ -4,6 +4,7 @@ import { deriveEnrichment } from "@/lib/leads/enrich";
 import { pushToHubSpot } from "@/lib/leads/hubspot";
 import { pingSlack } from "@/lib/leads/slack";
 import { emailLead } from "@/lib/leads/email";
+import { pushToN8n } from "@/lib/leads/n8n";
 import { checkRateLimit, getClientIp } from "@/lib/leads/rate-limit";
 import type { LeadError, LeadResult } from "@/lib/leads/types";
 
@@ -41,6 +42,7 @@ export async function POST(req: Request) {
         hubspot: "skipped",
         slack: "skipped",
         email: "skipped",
+        n8n: "skipped",
       },
     });
   }
@@ -55,15 +57,16 @@ export async function POST(req: Request) {
   const enrichment = deriveEnrichment(lead);
 
   // Run integrations in parallel; each degrades gracefully on its own.
-  const [hubspot, slack, email] = await Promise.all([
+  const [hubspot, slack, email, n8n] = await Promise.all([
     pushToHubSpot(lead),
     pingSlack(lead, enrichment),
     emailLead(lead, enrichment),
+    pushToN8n(lead, enrichment),
   ]);
 
   return NextResponse.json<LeadResult>({
     ok: true,
     enrichment,
-    integrations: { hubspot, slack, email },
+    integrations: { hubspot, slack, email, n8n },
   });
 }
