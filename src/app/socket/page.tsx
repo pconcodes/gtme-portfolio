@@ -43,22 +43,6 @@ const RESUME_URL = "/resume.pdf";
 const SCALING_VIDEO_URL = "https://www.youtube.com/watch?v=f1f-J8z8oSg&t=577s";
 const FEROSS_VIDEO_URL = "https://www.youtube.com/watch?v=9zPos04KL5c&t=723s";
 
-const beforeSteps = [
-  { label: "Research the account", time: "25 min" },
-  { label: "Find + verify contacts", time: "15 min" },
-  { label: "Enrich in a spreadsheet", time: "20 min" },
-  { label: "Write the outreach", time: "20 min" },
-  { label: "Update the CRM by hand", time: "15 min" },
-  { label: "Actually talk to buyers", time: "what's left" },
-];
-
-const afterSteps = [
-  { label: "Pipeline researches, enriches, and drafts overnight", time: "0 min of AE time" },
-  { label: "AE reviews, personalizes, sends", time: "10 min" },
-  { label: "CRM updates itself from activity", time: "0 min" },
-  { label: "Actually talk to buyers", time: "most of the day" },
-];
-
 const whyMe = [
   {
     title: "Certified software engineer",
@@ -184,32 +168,6 @@ function Card({
   );
 }
 
-/** Terminal-style row echoing Socket's alert cards. */
-function TermRow({
-  tone,
-  label,
-  detail,
-}: {
-  tone: "red" | "green";
-  label: string;
-  detail: string;
-}) {
-  return (
-    <div
-      className="flex flex-wrap items-baseline gap-x-2 gap-y-1 rounded-lg px-4 py-3 font-mono text-xs"
-      style={{ backgroundColor: c.panelDeep, border: `1px solid ${c.borderSoft}` }}
-    >
-      <span style={{ color: tone === "red" ? "#f87171" : "#4ade80" }}>
-        {tone === "red" ? "▲" : "●"}
-      </span>
-      <span className="font-semibold" style={{ color: c.text }}>
-        {label}:
-      </span>
-      <span style={{ color: c.muted }}>{detail}</span>
-    </div>
-  );
-}
-
 export default function SocketPitchPage() {
   return (
     <div style={{ backgroundColor: c.bg, color: c.text }}>
@@ -300,41 +258,8 @@ export default function SocketPitchPage() {
             </a>
           </Card>
         </div>
-      </section>
 
-      {/* Sales ICs */}
-      <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>02 / For the reps carrying quota</Kicker>
-        <SectionTitle>Same AE. Same day. Different system.</SectionTitle>
-        <p className="mt-4 max-w-2xl leading-7" style={{ color: c.muted }}>
-          An illustrative before-and-after of one AE&apos;s prospecting block —
-          the same workflow I automated for myself as a rep, and the first thing
-          I&apos;d instrument at Socket.
-        </p>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          <div>
-            <p className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: "#f87171" }}>
-              ▲ Before — manual
-            </p>
-            <div className="space-y-2">
-              {beforeSteps.map((s) => (
-                <TermRow key={s.label} tone="red" label={s.label} detail={s.time} />
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="mb-3 font-mono text-xs uppercase tracking-widest" style={{ color: "#4ade80" }}>
-              ● After — GTM-engineered
-            </p>
-            <div className="space-y-2">
-              {afterSteps.map((s) => (
-                <TermRow key={s.label} tone="green" label={s.label} detail={s.time} />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <Card className="mt-10">
+        <Card className="mt-4">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
             <p className="text-6xl font-semibold" style={gradientText}>
               1.7x
@@ -345,7 +270,16 @@ export default function SocketPitchPage() {
                 with a GTM engineering team of two doing most of the building.
               </p>
               <p className="mt-2 font-mono text-xs" style={{ color: c.faint }}>
-                — Ryan Milligan, CRO at QuotaPath
+                —{" "}
+                <a
+                  href="https://www.youtube.com/watch?v=VvsthkkOabg&t=550s"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 transition-opacity hover:opacity-80"
+                  style={{ color: c.purple }}
+                >
+                  Ryan Milligan, CRO at QuotaPath →
+                </a>
               </p>
             </div>
           </div>
@@ -354,7 +288,7 @@ export default function SocketPitchPage() {
 
       {/* Why me */}
       <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>03 / Why me</Kicker>
+        <Kicker>02 / Why me</Kicker>
         <SectionTitle>A rep who ships software.</SectionTitle>
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {whyMe.map((w) => (
@@ -372,7 +306,7 @@ export default function SocketPitchPage() {
 
       {/* Why now */}
       <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>04 / Why right now</Kicker>
+        <Kicker>03 / Why right now</Kicker>
         <SectionTitle>Socket just loaded the spring.</SectionTitle>
         <div className="mt-10 grid gap-4 sm:grid-cols-3">
           <Card>
@@ -415,7 +349,7 @@ export default function SocketPitchPage() {
 
       {/* First 90 days */}
       <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>05 / The first 90 days</Kicker>
+        <Kicker>04 / The first 90 days</Kicker>
         <SectionTitle>Three plays, all revenue-adjacent.</SectionTitle>
         <div className="mt-10 space-y-4">
           {ninetyDayPlays.map((p) => (
@@ -440,7 +374,7 @@ export default function SocketPitchPage() {
 
       {/* Objections */}
       <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>06 / The objections, handled</Kicker>
+        <Kicker>05 / The objections, handled</Kicker>
         <SectionTitle>Ask the hard questions. Here are mine.</SectionTitle>
         <div className="mt-10 space-y-4">
           {objections.map((o) => (
@@ -488,7 +422,7 @@ export default function SocketPitchPage() {
         <p className="mx-auto mt-16 max-w-2xl font-mono text-[11px] leading-5" style={{ color: c.faint }}>
           This page is a personal job-application pitch by Peter Conley and is not
           affiliated with, sponsored by, or endorsed by Socket Inc. Quoted metrics
-          are from the cited public sources; workflow timings are illustrative.
+          are from the cited public sources.
         </p>
       </section>
     </div>
