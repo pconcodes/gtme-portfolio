@@ -20,7 +20,7 @@ export async function pingSlack(
   const text = [
     ":inbox_tray: *New lead from the portfolio site*",
     `*Work email:* ${lead.email}`,
-    `*LinkedIn:* ${lead.linkedinUrl}`,
+    `*LinkedIn:* ${lead.linkedinUrl || "—"}`,
     `*Company domain:* ${enrichment.companyDomain ?? "—"}`,
   ].join("\n");
 

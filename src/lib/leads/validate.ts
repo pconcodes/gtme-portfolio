@@ -42,6 +42,7 @@ export function parseLead(body: unknown): ParsedForm {
 
   const email = str(data.email).toLowerCase();
   const linkedinUrl = str(data.linkedinUrl);
+  const source = str(data.source) === "socket" ? ("socket" as const) : undefined;
 
   const errors: string[] = [];
   if (!email) {
@@ -52,13 +53,15 @@ export function parseLead(body: unknown): ParsedForm {
     errors.push("Use your work email — personal addresses (Gmail, Yahoo, etc.) aren't accepted.");
   }
 
-  if (!linkedinUrl) {
-    errors.push("LinkedIn profile URL is required.");
-  } else if (!LINKEDIN_RE.test(linkedinUrl)) {
-    errors.push("Enter a valid LinkedIn profile URL.");
+  // The Socket pitch form only asks for an email; LinkedIn stays required
+  // everywhere else.
+  if (source !== "socket") {
+    if (!linkedinUrl) {
+      errors.push("LinkedIn profile URL is required.");
+    } else if (!LINKEDIN_RE.test(linkedinUrl)) {
+      errors.push("Enter a valid LinkedIn profile URL.");
+    }
   }
-
-  const source = str(data.source) === "socket" ? ("socket" as const) : undefined;
 
   const lead = errors.length === 0 ? { email, linkedinUrl, source } : undefined;
   return { lead, errors, isBot };

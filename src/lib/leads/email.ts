@@ -48,7 +48,7 @@ export async function emailLead(
           : `New lead: ${lead.email}`,
       text: [
         `Work email: ${lead.email}`,
-        `LinkedIn: ${lead.linkedinUrl}`,
+        `LinkedIn: ${lead.linkedinUrl || "—"}`,
         `Company domain: ${enrichment.companyDomain ?? "—"}`,
         ...(lead.source === "socket" ? ["Source: Socket pitch page contact form"] : []),
       ].join("\n"),

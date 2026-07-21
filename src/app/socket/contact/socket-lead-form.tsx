@@ -116,25 +116,6 @@ export function SocketLeadForm() {
         />
       </div>
 
-      <div>
-        <label
-          htmlFor="linkedinUrl"
-          className="mb-1.5 block font-mono text-xs uppercase tracking-widest"
-          style={{ color: c.faint }}
-        >
-          LinkedIn profile URL
-        </label>
-        <input
-          id="linkedinUrl"
-          name="linkedinUrl"
-          type="url"
-          required
-          className={inputClass}
-          style={{ backgroundColor: c.bg, border: `1px solid ${c.border}`, color: c.text }}
-          placeholder="https://linkedin.com/in/you"
-        />
-      </div>
-
       {status === "error" && errors.length > 0 && (
         <ul
           className="space-y-1 rounded-lg p-3 text-sm"

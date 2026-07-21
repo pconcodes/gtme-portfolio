@@ -49,7 +49,7 @@ export default function SocketContactPage() {
           ← Back to the pitch
         </Link>
         <h1 className="mt-6 text-4xl font-semibold tracking-tight sm:text-5xl">
-          Let&apos;s talk <span style={gradientText}>Socket</span>.
+          Let&apos;s talk <span style={gradientText}>GTM Engineering</span>.
         </h1>
         <div className="mt-10">
           <SocketLeadForm />
