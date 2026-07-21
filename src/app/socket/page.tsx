@@ -40,7 +40,7 @@ const gradientText = {
 
 const CALENDLY_URL = "https://calendly.com/peter-david-conley/lets-talk";
 const RESUME_URL = "/resume.pdf";
-const SCALING_VIDEO_URL = "https://www.youtube.com/watch?v=f1f-J8z8oSg&t=577s";
+const SCALING_VIDEO_URL = "https://youtu.be/f1f-J8z8oSg?si=5s-ABP6OMJM8jctj&t=93";
 const FEROSS_VIDEO_URL = "https://www.youtube.com/watch?v=9zPos04KL5c&t=723s";
 
 const whyMe = [
@@ -58,11 +58,11 @@ const whyMe = [
   },
   {
     title: "PLG-to-Enterprise motion, firsthand",
-    body: "As a Growth SDR at Vercel I worked the specialized motion moving Pro and free customers into Enterprise pipeline — the exact expansion play Socket's GTM runs on.",
+    body: "As a Growth SDR at Vercel I worked the specialized motion moving Pro customers into Enterprise pipeline — the exact expansion play Socket's GTM runs on.",
   },
   {
     title: "I know AE workflows from the inside",
-    body: "2.5 years as an SDR, 2 years as an AE. I automate the busywork because I've lived it — most GTM Engineers are guessing at what reps actually do all day.",
+    body: "2.5 years as an SDR, 2 years as an AE. I automate the busywork because I've lived it.",
   },
 ];
 
@@ -272,7 +272,7 @@ export default function SocketPitchPage() {
               <p className="mt-2 font-mono text-xs" style={{ color: c.faint }}>
                 —{" "}
                 <a
-                  href="https://www.youtube.com/watch?v=VvsthkkOabg&t=550s"
+                  href="https://youtu.be/VvsthkkOabg?si=Rwcwm5oGyUpC8AWv&t=1235"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline underline-offset-2 transition-opacity hover:opacity-80"
@@ -314,8 +314,7 @@ export default function SocketPitchPage() {
               $60M
             </p>
             <p className="mt-2 text-sm leading-6" style={{ color: c.muted }}>
-              Series C, March 2026 — $125M raised in total. Capital that only
-              compounds if the GTM machine scales with it.
+              Series C, March 2026 — $125M raised in total.
             </p>
           </Card>
           <Card>
