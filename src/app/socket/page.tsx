@@ -105,10 +105,12 @@ function PillLink({
   href,
   children,
   variant = "solid",
+  newTab,
 }: {
   href: string;
   children: React.ReactNode;
   variant?: "solid" | "outline";
+  newTab?: boolean;
 }) {
   const base =
     "inline-flex h-12 items-center justify-center rounded-full px-7 text-sm font-semibold transition-opacity hover:opacity-85";
@@ -116,13 +118,13 @@ function PillLink({
     variant === "solid"
       ? { backgroundColor: c.text, color: c.bg }
       : { border: `1px solid ${c.border}`, color: c.text };
-  const external = href.startsWith("http");
+  const opensNewTab = newTab ?? href.startsWith("http");
   return (
     <a
       href={href}
       className={base}
       style={style}
-      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      {...(opensNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       {children}
     </a>
@@ -214,8 +216,8 @@ export default function SocketPitchPage() {
             </strong>
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <PillLink href={CALENDLY_URL}>Book 30 minutes</PillLink>
-            <PillLink href={RESUME_URL} variant="outline">
+            <PillLink href="/socket/contact">Contact me</PillLink>
+            <PillLink href={RESUME_URL} variant="outline" newTab>
               Resume (PDF)
             </PillLink>
           </div>
