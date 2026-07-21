@@ -215,11 +215,11 @@ export default function SocketPitchPage() {
     <div style={{ backgroundColor: c.bg, color: c.text }}>
       {/* Provenance banner — this is Peter's pitch, not a Socket property. */}
       <div
-        className="px-6 py-2.5 text-center font-mono text-[11px] tracking-wide"
-        style={{ backgroundColor: c.panelDeep, borderBottom: `1px solid ${c.borderSoft}`, color: c.muted }}
+        className="px-6 py-2.5 text-center font-mono text-[11px] font-semibold tracking-wide"
+        style={{ backgroundColor: c.pink, color: "#ffffff" }}
       >
         A job-application pitch by{" "}
-        <Link href="/" className="underline underline-offset-2" style={{ color: c.text }}>
+        <Link href="/" className="underline underline-offset-2" style={{ color: "#ffffff" }}>
           Peter Conley
         </Link>{" "}
         — not an official Socket page.
@@ -238,8 +238,8 @@ export default function SocketPitchPage() {
 
         <div className="mx-auto max-w-4xl px-6 pb-20 pt-20 text-center sm:pt-28">
           <p
-            className="mx-auto inline-block rounded-full px-4 py-1.5 font-mono text-xs tracking-widest"
-            style={{ border: `1px solid ${c.border}`, color: c.muted }}
+            className="mx-auto inline-block rounded-full px-4 py-1.5 font-mono text-xs font-semibold tracking-widest"
+            style={{ backgroundColor: c.text, color: c.purple }}
           >
             FOR SOCKET&apos;S SALES LEADERSHIP
           </p>
@@ -250,9 +250,11 @@ export default function SocketPitchPage() {
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8" style={{ color: c.muted }}>
             Socket blocks malicious packages before they reach your code. I block
-            manual busywork before it reaches your AEs. This page is my pitch for
-            Socket&apos;s first dedicated GTM Engineer — and the site it lives on is
-            the working proof.
+            manual busywork before it reaches your AEs.{" "}
+            <strong style={{ color: c.text }}>
+              This page is my pitch for Socket&apos;s first dedicated GTM Engineer
+              — and the site it lives on is the working proof.
+            </strong>
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <PillLink href={CALENDLY_URL}>Book 30 minutes</PillLink>
