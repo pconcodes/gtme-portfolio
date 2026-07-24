@@ -69,10 +69,10 @@ const gaps = [
 
 const checks = [
   { tool: "Salesforce", proof: "2.5 years living in it daily at Vercel and HeroDevs — cases, opportunities, pipeline hygiene." },
-  { tool: "Vercel", proof: "I worked there for 15 months across three roles — and this site ships on it." },
+  { tool: "Vercel", proof: "I worked there for 15 months — and this site ships on it." },
   { tool: "Clay", proof: "My job search runs on a 40-company Clay table with enrichment columns I maintain by hand." },
   { tool: "n8n", proof: "I self-host the open-source version — deployed on Render, backed by Supabase Postgres, running production workflows." },
-  { tool: "Postgres", proof: "Supabase Postgres backs my n8n instance; I configured the session pooler, SSL, and schema isolation myself." },
+  { tool: "Postgres", proof: "Supabase Postgres backs both my n8n instance and swiftlisting.ai, the real-estate MVP I'm building; I configured the session pooler, SSL, and schema isolation myself." },
   { tool: "Consumption-based GTM", proof: "Vercel is a usage-based business — I worked the motion that turned free and Pro usage into Enterprise pipeline." },
   { tool: "TypeScript / JavaScript", proof: "Daily drivers — this page and the pipeline behind it are TypeScript end to end." },
 ];
@@ -257,7 +257,7 @@ export default function ClickHousePitchPage() {
         <SectionTitle>Your required stack is my daily stack.</SectionTitle>
         <p className="mt-4 max-w-2xl leading-7" style={{ color: c.muted }}>
           The posting asks for production experience with Salesforce, Vercel,
-          Clay, n8n, and Postgres in a consumption-based business. Unusually for
+          Clay, n8n, and Postgres in a consumption-based business. Unusual for
           a candidate coming from quota — that&apos;s a list I can walk through
           line by line.
         </p>
