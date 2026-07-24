@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 /**
  * Targeted pitch page for Owner.com — styled to echo Owner's brand (warm
  * off-white, near-black text, green accents, pill buttons) while clearly
- * framed as Peter's pitch, not an official Owner page. Noindexed on purpose:
- * this is a link to hand to a decision-maker, not a page to rank.
+ * framed as Peter's pitch, not an official Owner page.
+ *
+ * Follows the /clickhouse "why me" model: honest gaps quoted from the real
+ * posting, a line-by-line match of the stack the posting names, the
+ * shipped-work list, and the first-GTM-Engineer argument (the posting says
+ * "we need a GTM Engineer", and no one at Owner holds the title on
+ * LinkedIn). Noindexed on purpose.
  */
 
 export const metadata: Metadata = {
   title: "GTM Engineering for Owner.com — a pitch by Peter Conley",
   description:
-    "Why I'm applying for Owner.com's open GTM Engineer role, and what I'd automate in the first 90 days.",
+    "An honest application for Owner.com's open GTM Engineer role: the boxes I miss, the boxes I hit, and why a rep-turned-builder fits the first hire.",
   robots: { index: false, follow: false },
 };
 
@@ -38,65 +44,72 @@ const gradientText = {
 
 const CALENDLY_URL = "https://calendly.com/peter-david-conley/lets-talk";
 const RESUME_URL = "/resume.pdf";
-const SCALING_VIDEO_URL = "https://youtu.be/f1f-J8z8oSg?si=5s-ABP6OMJM8jctj&t=93";
-const MILLIGAN_VIDEO_URL = "https://youtu.be/VvsthkkOabg?si=Rwcwm5oGyUpC8AWv&t=1235";
 const OWNER_JOB_URL =
   "https://jobs.ashbyhq.com/owner/12650f0b-4438-4caa-a178-53fa86a45132";
 
-const whyMe = [
+const gaps = [
   {
-    title: "Certified software engineer",
-    body: "Full-stack (React, Next.js, Node, SQL) — I build the systems myself instead of filing tickets for them. Your posting asks for a builder with real engineering time; that's my resume, not an aspiration.",
+    req: "“4+ years of experience working within product management, engineering, and GTM functions”",
+    honest:
+      "My 4.5 years are concentrated on the GTM leg of that triad — 2.5 as an SDR, 2 as an AE. The product and engineering legs are newer: the past few months building GTM systems in public.",
   },
   {
-    title: "Your job post describes my stack",
-    body: "It asks for someone at the intersection of CRM, Clay/Apollo/Salesforce, and AI. That's my daily toolkit: HubSpot + Clay + n8n power this site's live pipeline, I ran Apollo sequencing at HeroDevs, and I worked in Salesforce every day at Vercel.",
+    req: "“Ideally with at least 1-2 years of experience as a software engineer or builder”",
+    honest:
+      "I haven't held the software engineer title. Mine is a full-stack engineering certification from BloomTech (FKA Lambda School) plus a portfolio of shipped, running software — judge the work below.",
   },
   {
-    title: "SMB velocity, firsthand",
-    body: "As founding SMB AE at HeroDevs I carried 25–50 concurrent opportunities — the same high-volume, high-velocity motion Owner's sales org runs with restaurant owners every day.",
-  },
-  {
-    title: "I've shipped a revenue engine in miniature",
-    body: "This site is a working acquisition funnel I built end to end: instant enrichment, CRM upsert, routing, notifications, and lifecycle auto-reply — the same shape as the system your posting describes, at portfolio scale.",
-  },
-  {
-    title: "I know rep workflows from the inside",
-    body: "2.5 years as an SDR, 2 years as an AE. I automate the busywork because I've lived it.",
+    req: "“You'll be the product owner for the infrastructure that finds restaurant owners”",
+    honest:
+      "I've never carried a product title either. What I do have is the muscle the title describes: I've scoped, built, shipped, and iterated software end to end, alone.",
   },
 ];
 
-const ninetyDayPlays = [
-  {
-    n: "01",
-    title: "Reverse-engineer what converts trials to ARR",
-    body: "Study the restaurants that went from trial to paid on their own — order volume, menu setup, engagement signals — then point lifecycle automation at every live trial that matches the pattern, so conversion stops depending on manual follow-up.",
-  },
-  {
-    n: "02",
-    title: "Wake up closed/nurture deals that went silent",
-    body: "Every closed-lost restaurant already knows Owner. Automated, signal-triggered re-engagement — a new location, an ownership change, a delivery-app fee hike — instead of letting them rot in the CRM.",
-  },
-  {
-    n: "03",
-    title: "Recover inbound leads that never booked a demo",
-    body: "Restaurant owners who raised a hand but never picked a time are the cheapest pipeline that exists. Automated follow-up sequences with booking links until they book or opt out.",
-  },
+const checks = [
+  { tool: "Salesforce", proof: "2.5 years living in it daily at Vercel and HeroDevs — cases, opportunities, pipeline hygiene." },
+  { tool: "Clay", proof: "My job search runs on a 40-company Clay table with enrichment columns I maintain by hand." },
+  { tool: "Apollo", proof: "At HeroDevs I designed and implemented product-based sequencing in Apollo." },
+  { tool: "CRM", proof: "HubSpot powers this site's live pipeline — upserts, notifications, and lifecycle auto-replies I wired myself." },
+  { tool: "AI tooling", proof: "At HeroDevs I built an internal prospecting and outreach app using Claude Code; this site and its pipeline are built the same way." },
+  { tool: "n8n + Postgres", proof: "I self-host open-source n8n on Render, backed by Supabase Postgres — session pooler, SSL, and schema isolation configured myself." },
+  { tool: "SMB velocity", proof: "As founding SMB AE I carried 25–50 concurrent opportunities — the same high-volume motion Owner's team runs with restaurant owners." },
 ];
 
-const objections = [
+const shipped: {
+  title: string;
+  body: string;
+  link?: { href: string; label: string };
+  image?: { src: string; alt: string; width: number; height: number };
+}[] = [
   {
-    q: "“But you haven't done this role before.”",
-    a: "Almost nobody has — your posting asks for a hybrid of product, engineering, and GTM that no traditional career path produces. Mine comes close: my whole career is being hired into roles that didn't exist yet — founding SDR and founding SMB AE at HeroDevs, founding member of Vercel's Growth SDR team — and I ship software.",
+    title: "This portfolio — a live lead pipeline",
+    body: "Next.js site where the contact form runs a real GTM system: instant enrichment, HubSpot upsert, Slack ping, email alert, n8n webhook, and a lifecycle auto-reply. Every submission demos the job itself.",
+    link: { href: "/case-studies/live-lead-pipeline", label: "Case study →" },
   },
   {
-    q: "“You don't have the tool knowledge or skill set.”",
-    a: "I'm building it in real time. The site you're on is a live HubSpot + Clay + n8n pipeline I built and shipped — the exact CRM + tooling + AI intersection your posting calls for.",
-    link: { href: "/case-studies/live-lead-pipeline", label: "See the live pipeline case study →" },
+    title: "Real-estate data-entry MVP",
+    body: "Built an MVP application that takes the manual data entry out of a real-estate agent's workflow — the same instinct as GTM engineering, pointed at a different industry.",
+    link: { href: "https://www.swiftlisting.ai/", label: "swiftlisting.ai →" },
   },
   {
-    q: "“We're a fast-moving startup — people wear a lot of hats. You may not be used to our pace.”",
-    a: "At Vercel I had two direct managers, worked across two orgs, and held three different titles over the period of 17 months. At HeroDevs I was both the founding SDR and the founding SMB AE. Wearing multiple hats isn't a risk for me; it's my resume.",
+    title: "WordPress → Next.js migration",
+    body: "Migrated my WordPress blog to Next.js on Vercel — content modeling, routing, and redirects, shipped end to end.",
+    link: { href: "https://www.pcon.blog/", label: "pcon.blog →" },
+  },
+  {
+    title: "Memoir landing page on Astro",
+    body: "Designed and shipped a memoir landing page on Astro — a different framework chosen deliberately for a content-first, zero-JS-by-default page.",
+    link: { href: "https://fatherifoundmyway.com/", label: "fatherifoundmyway.com →" },
+  },
+  {
+    title: "Self-hosted open-source n8n",
+    body: "Deployed n8n's OSS build to a Render web service backed by Supabase Postgres — connection pooling, SSL workarounds, schema isolation, a keep-alive workflow, and published production automations.",
+    image: {
+      src: "/n8n-render.png",
+      alt: "Render dashboard showing the n8n web service live on a Standard instance",
+      width: 674,
+      height: 366,
+    },
   },
 ];
 
@@ -133,7 +146,7 @@ function PillLink({
 function Kicker({ children }: { children: React.ReactNode }) {
   return (
     <p
-      className="font-mono text-xs uppercase tracking-[0.2em]"
+      className="font-mono text-2xl uppercase tracking-[0.2em]"
       style={{ color: c.green }}
     >
       {children}
@@ -208,11 +221,20 @@ export default function OwnerPitchPage() {
             <span style={gradientText}>for Owner.com</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8" style={{ color: c.muted }}>
-            Owner&apos;s product philosophy is doing the work for the restaurant
-            owner. Mine is doing the work for the revenue team.{" "}
+            You have an open{" "}
+            <a
+              href={OWNER_JOB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4"
+              style={{ color: c.text }}
+            >
+              GTM Engineer
+            </a>{" "}
+            role — and it would be your first.{" "}
             <strong style={{ color: c.text }}>
-              This page is my application for the GTM Engineer role you just
-              posted.
+              This page is my application, starting with an honest accounting of
+              the boxes I don&apos;t check.
             </strong>
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -224,190 +246,134 @@ export default function OwnerPitchPage() {
         </div>
       </section>
 
-      {/* Sales leadership */}
+      {/* The honest part */}
       <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>01 / For the revenue org</Kicker>
-        <SectionTitle>Your AEs sell for a quarter of their day.</SectionTitle>
-        <div className="mt-10 grid gap-4 sm:grid-cols-[1fr_1.4fr]">
-          <Card className="flex flex-col items-center justify-center text-center">
-            <p className="text-7xl font-semibold" style={gradientText}>
-              25%
-            </p>
-            <p className="mt-3 font-mono text-xs uppercase tracking-widest" style={{ color: c.faint }}>
-              of AE time spent selling
-            </p>
-          </Card>
-          <Card>
-            <p className="leading-7" style={{ color: c.muted }}>
-              On HubSpot&apos;s <em>Science of Scaling</em>, Stevie Case — CRO of
-              Vanta — puts actual selling time at about 25%. The other 75% is
-              demo prep, CRM hygiene, account research, and forecasting.
-            </p>
-            <p className="mt-4 leading-7" style={{ color: c.muted }}>
-              With 125 salespeople, every point of that 75% Owner claws back is
-              real ARR — a GTM Engineer&apos;s entire job is attacking it with
-              software, so quota capacity grows without growing headcount.
-            </p>
-            <a
-              href={SCALING_VIDEO_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-block font-mono text-sm underline underline-offset-4"
-              style={{ color: c.link }}
-            >
-              Watch the clip — &ldquo;Selling Time&rdquo; →
-            </a>
-          </Card>
+        <Kicker>01 / The honest part</Kicker>
+        <SectionTitle>I don&apos;t check every box.</SectionTitle>
+        <p className="mt-4 max-w-2xl leading-7" style={{ color: c.muted }}>
+          Your posting lists things I can&apos;t fully claim, and pretending
+          otherwise would waste your time. Here they are, next to what I have
+          instead.
+        </p>
+        <div className="mt-10 space-y-4">
+          {gaps.map((g) => (
+            <Card key={g.req}>
+              <p className="font-mono text-sm" style={{ color: c.faint }}>
+                {g.req}
+              </p>
+              <p className="mt-3 leading-7" style={{ color: c.muted }}>
+                {g.honest}
+              </p>
+            </Card>
+          ))}
         </div>
-
-        <Card className="mt-4">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-            <p className="text-6xl font-semibold" style={gradientText}>
-              1.7x
-            </p>
-            <div>
-              <p className="leading-7" style={{ color: c.muted }}>
-                QuotaPath grew closed ARR per rep <strong style={{ color: c.text }}>1.7x in 18 months</strong> —
-                with a GTM engineering team of two doing most of the building.
-              </p>
-              <p className="mt-2 font-mono text-xs" style={{ color: c.faint }}>
-                —{" "}
-                <a
-                  href={MILLIGAN_VIDEO_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-2 transition-opacity hover:opacity-80"
-                  style={{ color: c.link }}
-                >
-                  Ryan Milligan, CRO at QuotaPath →
-                </a>
-              </p>
-            </div>
-          </div>
-        </Card>
       </section>
 
-      {/* Why me */}
+      {/* The boxes I do check */}
       <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>02 / Why me</Kicker>
-        <SectionTitle>A rep who ships software.</SectionTitle>
+        <Kicker>02 / The boxes I do check</Kicker>
+        <SectionTitle>You named the intersection. I live there.</SectionTitle>
+        <p className="mt-4 max-w-2xl leading-7" style={{ color: c.muted }}>
+          Your posting asks for a career &ldquo;at the intersection of CRM,
+          modern tooling (Clay, Apollo, Salesforce), and AI.&rdquo; Line by
+          line:
+        </p>
+        <div className="mt-10 space-y-2">
+          {checks.map((t) => (
+            <div
+              key={t.tool}
+              className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl px-5 py-4"
+              style={{ backgroundColor: c.panel, border: `1px solid ${c.borderSoft}` }}
+            >
+              <span className="font-mono text-sm font-semibold" style={{ color: c.link }}>
+                {t.tool}
+              </span>
+              <span className="text-sm leading-6" style={{ color: c.muted }}>
+                {t.proof}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* What I've shipped */}
+      <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
+        <Kicker>03 / What I&apos;ve shipped</Kicker>
+        <SectionTitle>Proof I build, not plans to build.</SectionTitle>
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {whyMe.map((w) => (
-            <Card key={w.title}>
+          {shipped.map((s) => (
+            <Card key={s.title}>
               <h3 className="font-semibold" style={{ color: c.text }}>
-                {w.title}
+                {s.title}
               </h3>
               <p className="mt-2 text-sm leading-6" style={{ color: c.muted }}>
-                {w.body}
+                {s.body}
               </p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Why now */}
-      <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>03 / Why right now</Kicker>
-        <SectionTitle>The role is already open. Here&apos;s the fit.</SectionTitle>
-        <div className="mt-10 grid gap-4 sm:grid-cols-3">
-          <Card>
-            <p className="text-4xl font-semibold" style={gradientText}>
-              $120M
-            </p>
-            <p className="mt-2 text-sm leading-6" style={{ color: c.muted }}>
-              Series C at a $1B valuation (May 2025) — $189M raised in total,
-              powering 20,000+ restaurants.
-            </p>
-          </Card>
-          <Card>
-            <p className="text-4xl font-semibold" style={gradientText}>
-              170 vs 67
-            </p>
-            <p className="mt-2 text-sm leading-6" style={{ color: c.muted }}>
-              Sales + Business Development (170 people on LinkedIn) outnumber
-              Engineering (67) two and a half to one. Every manual workflow is
-              multiplied 170 times.
-            </p>
-          </Card>
-          <Card>
-            <p className="text-4xl font-semibold" style={gradientText}>
-              1st
-            </p>
-            <p className="mt-2 text-sm leading-6" style={{ color: c.muted }}>
-              No one at Owner holds the GTM Engineer title on LinkedIn today —
-              the{" "}
-              <a
-                href={OWNER_JOB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline underline-offset-2"
-                style={{ color: c.text }}
-              >
-                open role
-              </a>{" "}
-              would be the first. This page is my application for it.
-            </p>
-          </Card>
-        </div>
-        <p className="mt-4 font-mono text-[11px]" style={{ color: c.faint }}>
-          Funding and traction from press coverage and Owner&apos;s job posting; team
-          breakdown and title search from LinkedIn, July 2026.
-        </p>
-      </section>
-
-      {/* First 90 days */}
-      <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>04 / The first 90 days</Kicker>
-        <SectionTitle>Three plays, all revenue-adjacent.</SectionTitle>
-        <div className="mt-10 space-y-4">
-          {ninetyDayPlays.map((p) => (
-            <Card key={p.n}>
-              <div className="flex gap-5">
-                <span className="font-mono text-sm" style={{ color: c.green }}>
-                  {p.n}
-                </span>
-                <div>
-                  <h3 className="font-semibold" style={{ color: c.text }}>
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6" style={{ color: c.muted }}>
-                    {p.body}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Objections */}
-      <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
-        <Kicker>05 / The objections, handled</Kicker>
-        <SectionTitle>Handling objections</SectionTitle>
-        <div className="mt-10 space-y-4">
-          {objections.map((o) => (
-            <Card key={o.q}>
-              <h3 className="font-semibold" style={{ color: c.text }}>
-                {o.q}
-              </h3>
-              <p className="mt-3 text-sm leading-6" style={{ color: c.muted }}>
-                {o.a}
-              </p>
-              {o.link && (
+              {s.image && (
+                <Image
+                  src={s.image.src}
+                  alt={s.image.alt}
+                  width={s.image.width}
+                  height={s.image.height}
+                  className="mt-4 h-auto w-full max-w-72 rounded-lg"
+                  style={{ border: `1px solid ${c.border}` }}
+                />
+              )}
+              {s.link && (
                 <a
-                  href={o.link.href}
-                  {...(o.link.href.startsWith("http")
+                  href={s.link.href}
+                  {...(s.link.href.startsWith("http")
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
                   className="mt-4 inline-block font-mono text-sm underline underline-offset-4"
                   style={{ color: c.link }}
                 >
-                  {o.link.label}
+                  {s.link.label}
                 </a>
               )}
             </Card>
           ))}
         </div>
+      </section>
+
+      {/* Why this works */}
+      <section className="mx-auto max-w-4xl px-6 py-20" style={{ borderTop: `1px solid ${c.borderSoft}` }}>
+        <Kicker>04 / Why this works</Kicker>
+        <SectionTitle>The first hire shapes the role. Make it a rep.</SectionTitle>
+        <div className="mt-10 grid gap-4 sm:grid-cols-[1fr_1.4fr]">
+          <Card className="flex flex-col items-center justify-center text-center">
+            <p className="text-6xl font-semibold" style={gradientText}>
+              4.5yrs
+            </p>
+            <p className="mt-3 font-mono text-xs uppercase tracking-widest" style={{ color: c.faint }}>
+              carrying quota — 2.5 as an SDR, 2 as an AE
+            </p>
+          </Card>
+          <Card>
+            <p className="leading-7" style={{ color: c.muted }}>
+              Your posting says it plainly: &ldquo;we need a GTM Engineer to own
+              the systems that power how we grow&rdquo; — and no
+              one at Owner holds that title on LinkedIn today. This is a first
+              hire, and the engineering firepower is already covered: the role
+              partners with Engineering, Analytics, RevOps, and Design.
+            </p>
+            <p className="mt-4 leading-7" style={{ color: c.muted }}>
+              What that partnership doesn&apos;t have yet is someone who has
+              lived the funnel from inside it. Your posting asks for
+              &ldquo;deep customer empathy&rdquo; — and this role&apos;s first
+              customers are Owner&apos;s own sales, growth, and launch teams.
+              I&apos;ve carried the number, worked the CRM at 6pm on the last day
+              of the quarter, and I know which automations reps adopt and which
+              they quietly route around — because I&apos;ve been the rep on both
+              sides. That&apos;s the instinct you can&apos;t hire from a
+              traditional engineering résumé.
+            </p>
+          </Card>
+        </div>
+        <p className="mt-4 font-mono text-[11px]" style={{ color: c.faint }}>
+          Role language quoted from Owner&apos;s public job posting; title search
+          from LinkedIn, July 2026.
+        </p>
       </section>
 
       {/* CTA */}
@@ -425,8 +391,8 @@ export default function OwnerPitchPage() {
         </div>
         <p className="mx-auto mt-16 max-w-2xl font-mono text-[11px] leading-5" style={{ color: c.faint }}>
           This page is a personal job-application pitch by Peter Conley and is not
-          affiliated with, sponsored by, or endorsed by Owner.com. Quoted metrics
-          are from the cited public sources.
+          affiliated with, sponsored by, or endorsed by Owner.com. Role language
+          quoted from Owner&apos;s public job posting, July 2026.
         </p>
       </section>
     </div>
