@@ -39,13 +39,26 @@ const JOB_URL = "https://job-boards.greenhouse.io/clickhouse/jobs/6122325004";
 const gaps = [
   {
     req: "“5+ years building automation and tooling in GTM, RevOps, or growth engineering”",
-    honest:
-      "I have 4.5 years carrying quota — 2.5 as an SDR, 2 as an AE — and the past year building GTM systems in public. I've lived the workflows your team automates; I haven't yet held the title.",
+    honest: (
+      <>
+        I have 4.5 years carrying quota — 2.5 as an SDR, 2 as an AE — and the
+        past few months building GTM systems in public. I&apos;ve lived the
+        workflows your team automates for almost half a decade. You&apos;ll
+        easily find candidates who know how to automate the workflow better
+        than me —{" "}
+        <strong>
+          <em>
+            you&apos;ll be hard pressed to find a candidate who can
+            effortlessly identify what to automate.
+          </em>
+        </strong>
+      </>
+    ),
   },
   {
     req: "“Bachelor's degree in engineering required”",
     honest:
-      "Mine is a full-stack engineering certification (BloomTech) plus a portfolio of shipped, running software. If the degree is a hard gate, I'd rather know now — but I'd argue the work below is the better signal.",
+      "Mine is a full-stack engineering certification from BloomTech (FKA Lambda School) plus a portfolio of shipped, running software. If the degree is a hard gate, I'd rather know now — but I'd argue the work below is the better signal.",
   },
   {
     req: "“Hands-on development in Python… dbt transformation… Gong”",
@@ -55,7 +68,7 @@ const gaps = [
 ];
 
 const checks = [
-  { tool: "Salesforce", proof: "Two years living in it daily at Vercel — cases, opportunities, pipeline hygiene." },
+  { tool: "Salesforce", proof: "2.5 years living in it daily at Vercel and HeroDevs — cases, opportunities, pipeline hygiene." },
   { tool: "Vercel", proof: "I worked there for 15 months across three roles — and this site ships on it." },
   { tool: "Clay", proof: "My job search runs on a 40-company Clay table with enrichment columns I maintain by hand." },
   { tool: "n8n", proof: "I self-host the open-source version — deployed on Render, backed by Supabase Postgres, running production workflows." },
@@ -77,14 +90,17 @@ const shipped = [
   {
     title: "Real-estate data-entry MVP",
     body: "Built an MVP application that takes the manual data entry out of a real-estate agent's workflow — the same instinct as GTM engineering, pointed at a different industry.",
+    link: { href: "https://www.swiftlisting.ai/", label: "swiftlisting.ai →" },
   },
   {
     title: "WordPress → Next.js migration",
     body: "Migrated my WordPress blog to Next.js on Vercel — content modeling, routing, and redirects, shipped end to end.",
+    link: { href: "https://www.pcon.blog/", label: "pcon.blog →" },
   },
   {
     title: "Memoir landing page on Astro",
     body: "Designed and shipped a memoir landing page on Astro — a different framework chosen deliberately for a content-first, zero-JS-by-default page.",
+    link: { href: "https://fatherifoundmyway.com/", label: "fatherifoundmyway.com →" },
   },
 ];
 
@@ -277,13 +293,16 @@ export default function ClickHousePitchPage() {
                 {s.body}
               </p>
               {s.link && (
-                <Link
+                <a
                   href={s.link.href}
+                  {...(s.link.href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                   className="mt-4 inline-block font-mono text-sm underline underline-offset-4"
                   style={{ color: c.yellow }}
                 >
                   {s.link.label}
-                </Link>
+                </a>
               )}
             </Card>
           ))}
