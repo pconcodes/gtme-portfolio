@@ -4,7 +4,8 @@ export type LeadSource =
   | "owner"
   | "bolt"
   | "resend"
-  | "clickhouse";
+  | "clickhouse"
+  | "livekit";
 
 /** Display names for pitch-page sources, used in notification/auto-reply copy. */
 export const LEAD_SOURCE_LABELS: Record<LeadSource, string> = {
@@ -14,6 +15,7 @@ export const LEAD_SOURCE_LABELS: Record<LeadSource, string> = {
   bolt: "Bolt.new",
   resend: "Resend",
   clickhouse: "ClickHouse",
+  livekit: "LiveKit",
 };
 
 export interface Lead {
